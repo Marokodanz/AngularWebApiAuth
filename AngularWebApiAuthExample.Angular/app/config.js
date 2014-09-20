@@ -42,6 +42,7 @@
     var config = {
         appErrorPrefix: '[WebF1 Error] ', //Configure the exceptionHandler decorator
         docTitle: 'WebF1 Test: ',
+        httpCacheName: 'httpCache',
         keyCodes: keyCodes,
         apiServices: apiServices,
         events: events,

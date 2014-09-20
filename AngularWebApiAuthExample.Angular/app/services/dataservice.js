@@ -31,9 +31,9 @@
 
             $http.post(url, data, {
                 headers: header
-            }).success(function(response) {                
+            }).success(function (response) {
                 deferred.resolve(response);
-            }).error(function(error, status) {
+            }).error(function (error, status) {
                 deferred.reject(error);
             });
 
@@ -45,17 +45,16 @@
             return $http.post(url);
         }
 
-        function getPeople(cache) {
+        function getPeople() {
             var url = common.serviceUrl(config.apiServices.people) + 'List';
-            var cacheToPass = cache || false;            
-            return $http.get(url, {
-                cache: cacheToPass
-            });
+            
+            return $http.get(url);
         }
 
         function getUserInfo() {
             var url = common.serviceUrl(config.apiServices.account) + 'LocalUserInfo';
             return $http.get(url);
         }
+
     }
 })();

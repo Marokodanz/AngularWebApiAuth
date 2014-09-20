@@ -23,7 +23,7 @@
         }
 
         function getPeople() {
-            return dataservice.getPeople(true).then(function (response) {
+            return dataservice.getPeople().then(function (response) {
                 vm.users = response.data;
                 return response;
             }, function (error) {

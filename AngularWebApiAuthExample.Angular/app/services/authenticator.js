@@ -64,6 +64,7 @@
             authData.lastName = '';
             authData.email = '';
             authData.roles.slice(0, authData.roles.length);
+            
         }
 
         function fillData() {            
