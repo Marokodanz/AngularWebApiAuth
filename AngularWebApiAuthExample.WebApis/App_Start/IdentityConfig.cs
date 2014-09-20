@@ -71,39 +71,59 @@ namespace AngularWebApiAuthExample.WebApis
         {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
-            const string name = "admin@example.com";
-            const string password = "Admin@123456";
-            const string roleName = "Admin";
-            const string roleNameUser = "User";
+            const string adminName = "admin@example.com";
+            const string adminPassword = "Admin@123456";
+            const string adminFirstName = "Admin";
+            const string adminLastName = "Smith";
+            
+            const string userName = "user@example.com";
+            const string userPassword = "User@123456";
+            const string userFirstName = "User";
+            const string userLastName = "Doe";
 
-            //Create Role Admin if it does not exist
-            var role = roleManager.FindByName(roleName);
+            const string adminRoleName = "Admin";
+            const string userRoleName = "User";
+            
+            var role = roleManager.FindByName(adminRoleName);
             if (role == null)
             {
-                role = new IdentityRole(roleName);
+                role = new IdentityRole(adminRoleName);
                 var roleresult = roleManager.Create(role);
             }
 
-            var role2 = roleManager.FindByName(roleNameUser);
+            var role2 = roleManager.FindByName(userRoleName);
             if (role2 == null)
             {
-                role2 = new IdentityRole(roleNameUser);
+                role2 = new IdentityRole(userRoleName);
                 var roleresult = roleManager.Create(role2);
             }
 
-            var user = userManager.FindByName(name);
+            var user = userManager.FindByName(adminName);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name };
-                var result = userManager.Create(user, password);
-                result = userManager.SetLockoutEnabled(user.Id, false);
+                user = new ApplicationUser { UserName = adminName, Email = adminName, FirstName = adminFirstName, LastName = adminLastName };
+                var result = userManager.Create(user, adminPassword);
+                result = userManager.SetLockoutEnabled(user.Id, false);                
             }
 
-            // Add user admin to Role Admin if not already added
             var rolesForUser = userManager.GetRoles(user.Id);
             if (!rolesForUser.Contains(role.Name))
             {
                 var result = userManager.AddToRole(user.Id, role.Name);
+            }
+
+            user = userManager.FindByName(userName);
+            if (user == null)
+            {
+                user = new ApplicationUser { UserName = userName, Email = userName, FirstName = userFirstName, LastName = userLastName };
+                var result = userManager.Create(user, userPassword);
+                result = userManager.SetLockoutEnabled(user.Id, false);
+            }
+
+            rolesForUser = userManager.GetRoles(user.Id);
+            if (!rolesForUser.Contains(role2.Name))
+            {
+                var result = userManager.AddToRole(user.Id, role2.Name);
             }
         }
     }

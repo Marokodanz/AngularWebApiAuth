@@ -19,12 +19,26 @@
         };
         vm.message = '';
         vm.loginUser = loginUser;
+        vm.useAdmin = useAdmin;
+        vm.useUser = useUser;
 
         activate();
 
         function activate() {
             common.activateController([], controllerId).then(function () {
             });
+        }
+
+        function useAdmin() {
+            vm.loginData.userName = 'admin@example.com';
+            vm.loginData.password = 'Admin@123456';
+            loginUser();
+        }
+
+        function useUser() {
+            vm.loginData.userName = 'user@example.com';
+            vm.loginData.password = 'User@123456';
+            loginUser();
         }
 
         function loginUser() {

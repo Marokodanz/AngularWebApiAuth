@@ -46,6 +46,16 @@
         }
 
         function logOut() {
+            dataservice.logout().then(function() {
+                clearAuthStorage();
+                $location.path('/').replace();
+            }, function() {
+                clearAuthStorage();
+                $location.path('/').replace();
+            });
+        }
+
+        function clearAuthStorage() {
             localStorageService.remove('authorizationData');
             authData.isAuth = false;
             authData.userName = '';
@@ -54,7 +64,6 @@
             authData.lastName = '';
             authData.email = '';
             authData.roles.slice(0, authData.roles.length);
-            $location.path('/');
         }
 
         function fillData() {            
@@ -68,7 +77,8 @@
                         var userData = result.data;
                         authData.email = userData.email;
                         authData.roles = userData.roles;
-                        //The backend doesn't have first and last name
+                        authData.firstName = userData.firstName;
+                        authData.lastName = userData.lastName;
                     });
                 }
             }

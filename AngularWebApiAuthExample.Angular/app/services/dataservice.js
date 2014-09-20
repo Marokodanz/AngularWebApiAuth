@@ -13,6 +13,7 @@
 
         var service = {
             login: login,
+            logout: logout,
             getPeople: getPeople,
             getUserInfo: getUserInfo,
         };
@@ -37,6 +38,11 @@
             });
 
             return deferred.promise;
+        }
+
+        function logout() {
+            var url = common.serviceUrl(config.apiServices.account) + "Logout";
+            return $http.post(url);
         }
 
         function getPeople(cache) {

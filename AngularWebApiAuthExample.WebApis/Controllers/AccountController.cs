@@ -75,6 +75,9 @@ namespace AngularWebApiAuthExample.WebApis.Controllers
             var user = UserManager.FindById(userId);
 
             vm.Email = user.Email;
+            vm.FirstName = user.FirstName;
+            vm.LastName = user.LastName;
+            
             foreach (var role in UserManager.GetRoles(userId))
             {
                 vm.Roles.Add(role);

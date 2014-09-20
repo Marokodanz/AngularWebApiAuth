@@ -7,17 +7,28 @@
         .module('app')
         .controller(controllerId, about);
 
-    about.$inject = ['common']; 
+    about.$inject = ['dataservice', 'common']; 
 
-    function about(common) {
+    function about(dataservice, common) {
         /* jshint validthis:true */
         var vm = this;
         vm.title = 'about';
+        vm.getPeople = getPeople;
 
         activate();
 
         function activate() {
             common.activateController([], controllerId).then(function () {
+            });
+        }
+
+        function getPeople() {
+            return dataservice.getPeople(true).then(function (response) {
+                vm.users = response.data;
+                return response;
+            }, function (error) {
+                common.logger.logError('Could not get the people. ' + common.jsonMessage(error), true);
+                return false;
             });
         }
     }
