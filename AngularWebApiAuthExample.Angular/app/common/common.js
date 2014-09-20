@@ -29,6 +29,7 @@
             textContains: textContains,
             serviceUrl: serviceUrl,
             jsonMessage: jsonMessage,
+            checkRole: checkRole,
         };
 
         return service;
@@ -164,5 +165,20 @@
 
             return message;
         };
+
+        function checkRole(userRoles, rolesToCheck) {
+            if (rolesToCheck.length == 0) {
+                return true;
+            }
+            if (userRoles.length == 0) {
+                return false;
+            }
+            for (var i = 0; i < userRoles.length; i++) {                             
+                if (rolesToCheck.indexOf(userRoles[i]) > -1) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 })();

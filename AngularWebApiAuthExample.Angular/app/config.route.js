@@ -36,14 +36,22 @@
         return authenticator.fillData();
     }
 
-    checkSecurity.$inject = ['$q', '$route', '$location', 'logger'];
-    function checkSecurity($q, $route, $location, logger) {
+    checkSecurity.$inject = ['$q', '$route', '$location', 'authenticator', 'common'];
+    function checkSecurity($q, $route, $location, authenticator, common) {        
         var settings = $route.current.settings;
         var loginRequired = settings.loginRequired || false;
         var roles = settings.roles || [];
         if (loginRequired) {
-            //logger.logWarning('This will require logging in', null, null, true);
-        }
+            if (!authenticator.authData.isAuth) {
+                $location.path('/login');
+            } else {
+                if (roles.length > 0) {
+                    if (!common.checkRole(authenticator.authData.roles, roles)) {
+                        $location.path('/notauthorized').replace();         
+                    }
+                }
+            }
+        }        
     }
 
     // Define the routes 
@@ -67,7 +75,7 @@
                     templateUrl: 'app/home/about.html',
                     title: 'about',
                     settings: {
-                        nav: 1,
+                        nav: 2,
                         loginRequired: false,
                         roles: [],
                         content: '<i class="fa fa-dashboard"></i> About'
@@ -79,7 +87,7 @@
                     title: 'users',
                     templateUrl: 'app/users/users.html',
                     settings: {
-                        nav: 2,
+                        nav: 4,
                         loginRequired: true,
                         roles: ['Admin', 'User'],
                         content: '<i class="fa fa-users"></i> Sessions'
@@ -101,6 +109,14 @@
                     title: 'login',
                     templateUrl: 'app/users/login.html',
                     settings: {                        
+                    }
+                }
+            }, {
+                url: '/notauthorized',
+                config: {
+                    title: 'not authorized',
+                    templateUrl: 'app/home/notauthorized.html',
+                    settings: {
                     }
                 }
             }

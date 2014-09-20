@@ -14,6 +14,7 @@
         var service = {
             login: login,
             getPeople: getPeople,
+            getUserInfo: getUserInfo,
         };
 
         return service;
@@ -44,6 +45,11 @@
             return $http.get(url, {
                 cache: cacheToPass
             });
+        }
+
+        function getUserInfo() {
+            var url = common.serviceUrl(config.apiServices.account) + 'LocalUserInfo';
+            return $http.get(url);
         }
     }
 })();

@@ -31,7 +31,7 @@
 
         function responseError(error) {
             if (error.status === 401) {
-                $location.path('/login');
+                $location.path('/login').replace();
             }
             return $q.reject(error);
         }

@@ -57,12 +57,20 @@
             $location.path('/');
         }
 
-        function fillData() {
-            //TODO: Need to go to the server and get the rest of the data.
+        function fillData() {            
             var data = localStorageService.get('authorizationData');
             if (data) {
                 authData.isAuth = true;
                 authData.userName = data.userName;
+                if (!authData.userRetreived) {
+                    dataservice.getUserInfo().then(function(result) {
+                        authData.userRetreived = true;
+                        var userData = result.data;
+                        authData.email = userData.email;
+                        authData.roles = userData.roles;
+                        //The backend doesn't have first and last name
+                    });
+                }
             }
 
             $q.when(true);

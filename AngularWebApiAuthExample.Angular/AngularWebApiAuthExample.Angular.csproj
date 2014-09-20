@@ -78,6 +78,8 @@
     <Content Include="app\home\about.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\home.js" />
+    <Content Include="app\home\notauthorized.html" />
+    <Content Include="app\home\notauthorized.js" />
     <Content Include="app\layout\shell.html" />
     <Content Include="app\layout\shell.js" />
     <Content Include="app\services\authenticator.js" />
@@ -86,6 +88,8 @@
     <Content Include="app\services\routemediator.js" />
     <Content Include="app\users\login.html" />
     <Content Include="app\users\login.js" />
+    <Content Include="app\users\userdetail.html" />
+    <Content Include="app\users\userdetail.js" />
     <Content Include="app\users\users.html" />
     <Content Include="app\users\users.js" />
     <Content Include="Content\bootstrap-theme.css" />
