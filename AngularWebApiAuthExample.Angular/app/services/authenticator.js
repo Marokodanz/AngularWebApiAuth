@@ -73,7 +73,7 @@
                 }
             }
 
-            $q.when(true);
+            return $q.when(true);
         }
     }
 })();

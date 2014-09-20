@@ -22,7 +22,6 @@
             //by extending any existing resolvers (or create a new one.)
             config.resolve = angular.extend(config.resolve || {},
             {
-                getSecurityData: getSecurityData,
                 checkSecurity: checkSecurity
             });
 
@@ -31,27 +30,31 @@
         }
     }
 
-    getSecurityData.$inject = ['authenticator'];
-    function getSecurityData(authenticator) {
-        return authenticator.fillData();
-    }
-
     checkSecurity.$inject = ['$q', '$route', '$location', 'authenticator', 'common'];
-    function checkSecurity($q, $route, $location, authenticator, common) {        
-        var settings = $route.current.settings;
-        var loginRequired = settings.loginRequired || false;
-        var roles = settings.roles || [];
-        if (loginRequired) {
-            if (!authenticator.authData.isAuth) {
-                $location.path('/login');
-            } else {
-                if (roles.length > 0) {
-                    if (!common.checkRole(authenticator.authData.roles, roles)) {
-                        $location.path('/notauthorized').replace();         
+    function checkSecurity($q, $route, $location, authenticator, common) {
+        var deferred = $q.defer();
+        authenticator.fillData().then(function() {
+            var settings = $route.current.settings;
+            var loginRequired = settings.loginRequired || false;
+            var roles = settings.roles || [];
+            if (loginRequired) {
+                if (!authenticator.authData.isAuth) {
+                    $location.path('/login');
+                } else {
+                    if (roles.length > 0) {
+                        if (!common.checkRole(authenticator.authData.roles, roles)) {
+                            $location.path('/notauthorized').replace();
+                        }
                     }
                 }
             }
-        }        
+            deferred.resolve(true); //We want to return just true even if we have to re-route. 
+                                    //If we returned an reject, the the global handler will re-route us to home
+        }, function(error) {
+            deferred.reject(error);
+        });
+
+        return deferred.promise;               
     }
 
     // Define the routes 
