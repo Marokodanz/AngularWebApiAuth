@@ -171,3 +171,7 @@ form-login {
         border-top-right-radius: 0;
     }
 /*#endregion*/
+
+.pointer {
+    cursor: pointer ;
+}

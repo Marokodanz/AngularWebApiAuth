@@ -10,9 +10,9 @@
 
     commonModule.factory('common', common);
 
-    common.$inject = ['$q', '$rootScope', '$timeout', '$cacheFactory', 'logger', 'config'];
+    common.$inject = ['$q', '$rootScope', '$timeout', '$location', 'logger', 'config'];
 
-    function common($q, $rootScope, $timeout, $cacheFactory, logger, config) {
+    function common($q, $rootScope, $timeout, $location, logger, config) {
         var throttles = {};
 
         var service = {
@@ -20,6 +20,7 @@
             $broadcast: $broadcast,
             $q: $q,
             $timeout: $timeout,
+            $location: $location,
             // generic
             activateController: activateController,
             createSearchThrottle: createSearchThrottle,
@@ -29,8 +30,7 @@
             textContains: textContains,
             serviceUrl: serviceUrl,
             jsonMessage: jsonMessage,
-            checkRole: checkRole,
-            getHttpCache: getHttpCache,
+            checkRole: checkRole,            
         };
 
         return service;
@@ -181,9 +181,6 @@
             }
             return false;
         }
-
-        function getHttpCache() {
-            return $cacheFactory(config.httpCacheName);
-        }
+        
     }
 })();

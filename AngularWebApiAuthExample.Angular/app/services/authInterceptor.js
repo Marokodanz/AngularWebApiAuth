@@ -1,10 +1,10 @@
 ﻿(function () {
     'use strict';
 
+    var app = angular.module('app');
     var factoryId = 'authInterceptor';
-    angular
-        .module('app')
-        .factory(factoryId, authInterceptor);
+
+    app.factory(factoryId, authInterceptor);
 
     authInterceptor.$inject = ['$q', '$location', 'localStorageService'];
 
@@ -29,11 +29,21 @@
             return config;
         }
 
-        function responseError(error) {
-            if (error.status === 401) {
-                $location.path('/login').replace();
+        function responseError(error) {            
+            var loggedIn = false;
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                loggedIn = true;
             }
-            return $q.reject(error);
+            //We only want to go to the login page if the user is not
+            //logged in. If the user is logged in and they get a 401 is
+            //because they don't have access to the resource requested.
+            if (error.status === 401 && !loggedIn) {
+                $location.path('/login').replace();
+                return $q.reject(error);
+            }
+
+            return $q.when(true);
         }
     }
 })();

@@ -7,9 +7,9 @@
         .module('app')
         .controller(controllerId, login);
 
-    login.$inject = ['$location', 'authenticator', 'common'];
+    login.$inject = ['authenticator', 'common'];
 
-    function login($location, authenticator, common) {
+    function login(authenticator, common) {
         /* jshint validthis:true */
         var vm = this;
         vm.title = 'login';
@@ -45,7 +45,7 @@
             authenticator.login(vm.loginData)
                 .then(function (response) {
                     common.logger.logSuccess('Welcome to our world ' + authenticator.authData.userName, true);
-                    $location.path('/');
+                    common.$location.path('/');
                 }, function (error) {
                     vm.message = error.error_description;
                 });

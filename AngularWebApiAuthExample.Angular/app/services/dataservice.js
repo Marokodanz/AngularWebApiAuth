@@ -7,16 +7,17 @@
         .module('app')
         .factory(factoryId, dataservice);
 
-    dataservice.$inject = ['$http', '$q', 'logger', 'common', 'config'];
+    dataservice.$inject = ['$http', 'common', 'config'];
 
-    function dataservice($http, $q, logger, common, config) {
+    function dataservice($http, common, config) {
 
         var service = {
             login: login,
             logout: logout,
             getPeople: getPeople,
             getUserInfo: getUserInfo,
-        };
+            getPerson: getPerson,
+    };
 
         return service;
 
@@ -27,7 +28,7 @@
             var header = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
 
-            var deferred = $q.defer();
+            var deferred = common.$q.defer();
 
             $http.post(url, data, {
                 headers: header
@@ -56,5 +57,9 @@
             return $http.get(url);
         }
 
+        function getPerson(id) {
+            var url = common.serviceUrl(config.apiServices.people) + 'Get/' + id;
+            return $http.get(url);
+        }
     }
 })();

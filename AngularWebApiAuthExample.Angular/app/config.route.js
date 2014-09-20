@@ -30,20 +30,20 @@
         }
     }
 
-    checkSecurity.$inject = ['$q', '$route', '$location', 'authenticator', 'common'];
-    function checkSecurity($q, $route, $location, authenticator, common) {
-        var deferred = $q.defer();
+    checkSecurity.$inject = ['$route', 'authenticator', 'common'];
+    function checkSecurity($route, authenticator, common) {
+        var deferred = common.$q.defer();
         authenticator.fillData().then(function() {
             var settings = $route.current.settings;
             var loginRequired = settings.loginRequired || false;
             var roles = settings.roles || [];
             if (loginRequired) {
                 if (!authenticator.authData.isAuth) {
-                    $location.path('/login');
+                    common.$location.path('/login');
                 } else {
                     if (roles.length > 0) {
                         if (!common.checkRole(authenticator.authData.roles, roles)) {
-                            $location.path('/notauthorized').replace();
+                            common.$location.path('/notauthorized').replace();
                         }
                     }
                 }

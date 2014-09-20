@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat="x in vm.users">
+            <tr data-ng-repeat="x in vm.users" data-ng-click="vm.viewDetail(x)" class="pointer">
                 <td>
                     {{x.id}}
                 </td>
@@ -27,6 +27,5 @@
                 </td>
             </tr>
         </tbody>
-    </table>
-    <a href="#/users/detail/1">view detail page</a>
+    </table>    
 </section>

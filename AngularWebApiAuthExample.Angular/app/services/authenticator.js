@@ -73,7 +73,7 @@
                 authData.isAuth = true;
                 authData.userName = data.userName;
                 if (!authData.userRetreived) {
-                    dataservice.getUserInfo().then(function(result) {
+                    return dataservice.getUserInfo().then(function(result) {
                         authData.userRetreived = true;
                         var userData = result.data;
                         authData.email = userData.email;

@@ -13,6 +13,7 @@
         var vm = this;
         vm.title = 'users';
         vm.users = [];
+        vm.viewDetail = viewDetail;
 
         activate();
 
@@ -32,6 +33,12 @@
                 common.logger.logError('Could not get the people. ' + common.jsonMessage(error), true);
                 return false;
             });
+        }
+
+        function viewDetail(person) {
+            if (person && person.id) {
+                common.$location.path('/users/detail/' + person.id);
+            }
         }
     }
 })();
