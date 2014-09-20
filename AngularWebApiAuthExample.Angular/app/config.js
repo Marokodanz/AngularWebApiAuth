@@ -31,7 +31,7 @@
     };
 
     var baseUrl = 'http://localhost:59063';
-    var apiBaseUrl = "api/"; 
+    var apiBaseUrl = "/api/"; 
 
 
     var events = {

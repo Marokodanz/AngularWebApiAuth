@@ -28,8 +28,7 @@
             logger: logger, // for accessibility
             textContains: textContains,
             serviceUrl: serviceUrl,
-            jsonGet: jsonGet,
-            jsonPost: jsonPost
+            jsonMessage: jsonMessage,
         };
 
         return service;
@@ -125,12 +124,45 @@
 
         }
 
-        function jsonGet(url, data) {
-            
-        }
+        function jsonMessage(error) {
+            var message = "Unknown";
 
-        function jsonPost(url, data) {
-            
-        }
+            if (error.data) {
+                if (error.data.exceptionMessage) {
+                    message = error.data.exceptionMessage;
+                    if (error.data.stackTrace) {
+                        message += "<br />" + crToBr(error.data.stackTrace);
+                    }
+                } else if (error.data.messageDetail) {
+                    message = error.data.messageDetail;
+                } else if (error.data.message) {
+                    if (error.data.modelState) {
+                        var items;
+                        message = '';
+                        for (var key in error.data.modelState) {
+                            items = error.data.modelState[key];
+
+                            if (items.length) {
+                                for (var i = 0; i < items.length; i++) {
+                                    message += '<br />' + items[i];
+                                }
+                            }
+                        }
+                    } else {
+                        message = error.data.message;
+                    }
+                } else if (error.data.error_description) {
+                    message = error.data.error_description;
+                }
+            } else if (error.statusText) {
+                message = error.statusText;
+            } else if (error.description) {
+                message = error.description;
+            } else if (error.error_description) {
+                message = error.error_description;
+            }
+
+            return message;
+        };
     }
 })();

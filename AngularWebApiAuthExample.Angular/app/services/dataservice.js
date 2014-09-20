@@ -12,7 +12,8 @@
     function dataservice($http, $q, logger, common, config) {
 
         var service = {
-            login: login
+            login: login,
+            getPeople: getPeople,
         };
 
         return service;
@@ -35,6 +36,14 @@
             });
 
             return deferred.promise;
+        }
+
+        function getPeople(cache) {
+            var url = common.serviceUrl(config.apiServices.people) + 'List';
+            var cacheToPass = cache || false;            
+            return $http.get(url, {
+                cache: cacheToPass
+            });
         }
     }
 })();
