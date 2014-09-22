@@ -69,7 +69,7 @@
                         nav: 1,
                         loginRequired: false,
                         roles: [],
-                        content: '<i class="fa fa-dashboard"></i> Dashboard'
+                        content: '<i class="fa fa-home"></i> Home'
                     }
                 }
             }, {
@@ -81,7 +81,7 @@
                         nav: 2,
                         loginRequired: false,
                         roles: [],
-                        content: '<i class="fa fa-dashboard"></i> About'
+                        content: '<i class="fa fa-building"></i> About'
                     }
                 }
             }, {
@@ -90,10 +90,10 @@
                     title: 'users',
                     templateUrl: 'app/users/users.html',
                     settings: {
-                        nav: 4,
+                        nav: 3,
                         loginRequired: true,
                         roles: ['Admin', 'User'],
-                        content: '<i class="fa fa-users"></i> Sessions'
+                        content: '<i class="fa fa-users"></i> People'
                     }
                 }
             }, {

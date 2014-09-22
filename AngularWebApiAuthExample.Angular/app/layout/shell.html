@@ -17,19 +17,15 @@
                 <button class="btn btn-success navbar-toggle"
                         data-ng-click="navbarExpanded = !navbarExpanded">
                     <span class="glyphicon glyphicon-chevron-down"></span>
-                </button>
-                <a class="navbar-brand" href="#/">Home</a>
+                </button>                
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
                     <li data-ng-hide="!vm.authentication.isAuth">
                         <a href="#">Welcome {{vm.authentication.firstName}}</a>
                     </li>
-                    <li>
-                        <a href="#/about">About</a>
-                    </li>
-                    <li data-ng-hide="!vm.authentication.isAuth">
-                        <a href="#/users">People</a>
+                    <li data-ng-repeat="r in vm.navRoutes">
+                        <a href="#{{r.url}}" data-ng-bind-html="r.config.settings.content" data-ng-hide="!vm.displayNav(r)"></a>
                     </li>
                     <li data-ng-hide="!vm.authentication.isAuth">
                         <a href="" data-ng-click="vm.logOut()">Logout</a>
