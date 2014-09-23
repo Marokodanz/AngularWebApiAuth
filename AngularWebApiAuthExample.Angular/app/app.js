@@ -16,9 +16,9 @@
         'LocalStorageModule'
     ]);
 
-    app.config(function ($httpProvider) {
+    app.config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('authInterceptor');
-    });
+    }]);
 
     // Handle routing errors and success events
     app.run([
