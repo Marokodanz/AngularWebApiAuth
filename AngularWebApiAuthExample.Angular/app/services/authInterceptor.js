@@ -39,11 +39,10 @@
             //logged in. If the user is logged in and they get a 401 is
             //because they don't have access to the resource requested.
             if (error.status === 401 && !loggedIn) {
-                $location.path('/login').replace();
-                return $q.reject(error);
+                $location.path('/login').replace();                
             }
 
-            return $q.when(true);
+            return $q.reject(error);
         }
     }
 })();
