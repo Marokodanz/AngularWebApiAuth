@@ -42,6 +42,46 @@ namespace AngularWebApiAuthExample.WebApis
             }
             return manager;
         }
+
+        //If you wanted to use your own database, you can simply override these two methods.
+        //public override async Task<ApplicationUser> FindAsync(string userName, string password)
+        //{
+        //    var myUser = new MyUserTable();
+        //    using (var ctx = new MyDbContext())
+        //    {
+        //        myUser =
+        //                ctx.MyUserTables.FirstOrDefault(
+        //                    x => x.UserName == userName && x.Password == password && x.Active);
+        //    }
+        //    if (myUser == null)
+        //    {
+        //        return null;
+        //    }
+        //    //Because I'm changing the minimum I can, I'm returning an ApplicationUser even though this
+        //    //is not what I retrieve from the database.
+        //    return await Task.Run(() => new ApplicationUser
+        //    {
+        //        UserName = myUser.UserName,
+        //        Id = myUser.UserName,
+        //    });
+        //}
+
+        //public override async Task<ClaimsIdentity> CreateIdentityAsync(ApplicationUser user, string authenticationType)
+        //{
+        //    var claimCollection = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Name, user.UserName),
+        //        //The Roles below are examples. Of course, these would be coming from a database
+        //        //and populated that way.
+        //        new Claim(ClaimTypes.Role, "Admin"),
+        //        new Claim(ClaimTypes.Role, "User")
+        //        //http://www.remondo.net/simple-claims-based-identity/
+        //    };
+
+        //    var claimsIdentity = new ClaimsIdentity(claimCollection, authenticationType);
+
+        //    return await Task.Run(() => claimsIdentity);
+        //}
     }
 
     // Configure the RoleManager used in the application. RoleManager is defined in the ASP.NET Identity core assembly

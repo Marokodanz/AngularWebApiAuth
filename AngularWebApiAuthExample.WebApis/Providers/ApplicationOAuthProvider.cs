@@ -28,7 +28,7 @@ namespace AngularWebApiAuthExample.WebApis.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);            
 
             if (user == null)
             {
