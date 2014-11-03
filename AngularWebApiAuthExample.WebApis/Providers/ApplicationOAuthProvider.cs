@@ -28,6 +28,10 @@ namespace AngularWebApiAuthExample.WebApis.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
+            //CORS
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            //CORS
+
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);            
 
             if (user == null)

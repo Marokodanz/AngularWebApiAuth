@@ -3,11 +3,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace AngularWebApiAuthExample.WebApis.Controllers
 {
     //[Authorize]
     [RoutePrefix("api/People")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PeopleController : ApiController
     {
         private List<Person> people;
